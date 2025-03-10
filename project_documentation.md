@@ -35,3 +35,8 @@
 - Incorporate machine learning for predictive modeling
 - Expand data sources to include more social media platforms
 - Develop an interactive dashboard for real-time analysis
+
+## 9. API Setup
+- Twitter: Developer account required, create app at developer.twitter.com
+- Facebook: Developer account needed, create app at developers.facebook.com
+- Instagram: Business or Creator account linked to Facebook Page required

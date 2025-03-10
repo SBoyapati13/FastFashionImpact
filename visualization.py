@@ -26,11 +26,12 @@ def plot_environmental_impact(env_report):
         water_consumption = float(env_report.split('Water Consumption: ')[1].split(' cubic meters')[0])
         textile_waste = float(env_report.split('Textile Waste: ')[1].split(' tons')[0])
         microplastic_pollution = float(env_report.split('Microplastic Pollution: ')[1].split(' tons')[0])
-        #chemical_usage = float(env_report.split('Chemical Usage: ')[1].split(' kg')[0])
+        landfill_usage = float(env_report.split('Landfill Usage: ')[1].split(' cubic meters')[0])
+        chemical_usage = float(env_report.split('Chemical Usage: ')[1].split(' kg')[0])
 
         # Prepare the data for the bar chart
-        metrics = ['Carbon Emissions', 'Water Consumption', 'Textile Waste', 'Microplastic Pollution']
-        values = [carbon_emissions, water_consumption, textile_waste, microplastic_pollution]
+        metrics = ['Carbon Emissions', 'Water Consumption', 'Textile Waste', 'Microplastic Pollution', 'Landfill Usage', 'Chemical Usage']
+        values = [carbon_emissions, water_consumption, textile_waste, microplastic_pollution, landfill_usage, chemical_usage]
 
         # Create a bar chart
         plt.figure(figsize=(12, 6))

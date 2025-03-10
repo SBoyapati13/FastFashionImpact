@@ -5,14 +5,20 @@ import seaborn as sns
 import nltk
 import tweepy
 from api_credentials import *
+from data_analysis import perform_topic_modeling, calculate_environmental_metrics, analyze_sentiment_trends, identify_key_influencers
 
 def collect_twitter_data():
     auth = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
     auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth)
     
-    # TODO: Implement Twitter data collection
-    pass
+    tweets = []
+    search_query = "fast fashion OR sustainable fashion"
+    
+    for tweet in tweepy.Cursor(api.search_tweets, q=search_query, lang="en").items(1000):
+        tweets.append(tweet._json)
+    
+    return pd.DataFrame(tweets)
 
 def collect_facebook_data():
     # TODO: Implement Facebook data collection using Graph API
@@ -52,9 +58,13 @@ def main():
     
     sentiment = perform_sentiment_analysis(cleaned_data)
     impact = quantify_environmental_impact(cleaned_data)
-    trends = identify_trends(cleaned_data)
     
-    visualize_results(cleaned_data, trends, impact)
+    lda_model, vectorizer = perform_topic_modeling(cleaned_data)
+    env_metrics = calculate_environmental_metrics(cleaned_data)
+    sentiment_trends = analyze_sentiment_trends(cleaned_data)
+    key_influencers = identify_key_influencers(cleaned_data)
+    
+    visualize_results(cleaned_data, lda_model, env_metrics, sentiment_trends, key_influencers)
 
 if __name__ == "__main__":
     main()

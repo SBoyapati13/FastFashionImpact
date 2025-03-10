@@ -62,18 +62,22 @@
 
 ## 11. Environmental Impact of Fast Fashion (2025)
 
-- Carbon Emissions: The fashion industry is responsible for 10% of the global annual carbon footprint, which is more than the emissions from all international flights and maritime shipping combined[1].
-- Textile Waste: Consumers produce 92 million tonnes of textile waste yearly, projected to reach 134 million tonnes by 2030[1].
-- Water Consumption: The textile sector uses around 93 billion cubic meters of water per year, equivalent to the needs of 5 million people[1].
-- Polyester Production: Approximately 70 million barrels of oil are used annually to produce polyester fiber[1].
+- Carbon Emissions: The fashion industry is responsible for 10% of global carbon emissions, more than international flights and maritime shipping combined[1][3][5].
+- Textile Waste: Consumers produce 92 million tonnes of textile waste yearly, projected to reach 134 million tonnes by 2030[1][5].
+- Water Consumption: The fashion industry uses 141 billion cubic meters of water annually[3].
+- Microplastic Pollution: The industry contributes to 35% of microplastics polluting oceans[3].
+- Chemical Usage: Up to 8,000 different chemicals are used to transform raw materials into textiles[5].
+- Polyester Production: One polyester blouse generates 11.6 kg CO2e from production to retail[5].
 
 ## 12. Market Growth Projections
 
-- The global fast fashion market size is estimated to grow by USD 79.2 billion from 2025-2029[2].
-- The market is expected to grow at a CAGR of 11% during the forecast period[2].
+- The global fast fashion market size is estimated at $150.82 billion in 2025[3].
+- The market is projected to reach $291.1 billion by 2032, growing at a CAGR of 10.7% from 2024 to 2032[3].
 
 ## References
 
-[1] UniformMarket. (2025, February 3). Fast Fashion Statistics 2025. Retrieved from https://www.uniformmarket.com/statistics/fast-fashion-statistics
+[1] Carbon Trail. (2025, January 30). Fast Fashion and Its Environmental Impact in 2025. Retrieved from https://carbontrail.net/blog/fast-fashion-and-its-environmental-impact-in-2025/
 
-[2] PRNewswire. (2025, February 4). Fast Fashion Market to Grow by USD 79.2 Billion from 2025-2029, Driven by Burgeoning Youth Populations Demand for Clothing. Retrieved from https://www.prnewswire.com/news-releases/fast-fashion-market-to-grow-by-usd-79-2-billion-from-2025-2029--driven-by-burgeoning-youth-populations-demand-for-clothing-report-on-ais-market-impact---technavio-302366158.html
+[3] UniformMarket. (2025, February 3). Fast Fashion Statistics 2025. Retrieved from https://www.uniformmarket.com/statistics/fast-fashion-statistics
+
+[5] YouBamboo. (2025, January 30). The True Environmental Cost of Fast Fashion - Making Conscious Choices in 2025. Retrieved from https://youbamboo.com/blogs/youbamboo/the-true-environmental-cost-of-fast-fashion-making-conscious-choices-in-2025

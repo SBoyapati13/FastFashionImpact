@@ -3,8 +3,8 @@ import numpy as np
 
 def calculate_carbon_emissions(production_data):
     # Fashion industry responsible for 10% of global carbon emissions
-    global_emissions = 51.8 * 10**9  # Global CO2 emissions in tons for 2025
-    fashion_emissions = 0.10 * global_emissions
+    global_emissions = 1.2 * 10**9  # 1.2 billion tons of CO2 equivalent annually
+    fashion_emissions = global_emissions
     return fashion_emissions * (production_data['total_production'] / production_data['total_production'].sum())
 
 def estimate_water_consumption(production_data):
@@ -34,15 +34,17 @@ def generate_environmental_impact_report(carbon_emissions, water_consumption, te
     4. Microplastic Pollution: {microplastic_pollution:.2f} tons
 
     Key Findings:
-    - The fashion industry is responsible for 10% of global carbon emissions, surpassing international flights and maritime shipping combined[1][2][3].
-    - The industry uses 141 billion cubic meters of water annually[2].
-    - Fast fashion contributes to 35% of microplastics polluting our oceans[2].
-    - Up to 8,000 different chemicals are used in textile production[3].
-    - One polyester blouse generates 11.6 kg CO2e from production to retail[3].
+    - The fashion industry is responsible for 10% of global carbon emissions, surpassing international flights and maritime shipping combined[1][3][5].
+    - The industry uses 141 billion cubic meters of water annually[3].
+    - Fast fashion contributes to 35% of microplastics polluting our oceans[3].
+    - Up to 8,000 different chemicals are used in textile production[5].
+    - One polyester blouse generates 11.6 kg CO2e from production to retail[5].
+    - 20% of global water pollution comes from textile dyeing[5].
+    - Synthetic materials release 500,000 tons of microfibers into the oceans annually[5].
 
     Market Growth:
-    - The fast fashion market size has grown to $150.82 billion in 2025[2].
-    - It is projected to reach $291.1 billion by 2032, growing at a CAGR of 10.7% from 2024 to 2032[2].
+    - The fast fashion market size has grown to $163.21 billion in 2025[2].
+    - It is projected to reach $214.24 billion by 2029, growing at a CAGR of 7%[2].
 
     Recommendations:
     1. Transition to sustainable materials and production methods.

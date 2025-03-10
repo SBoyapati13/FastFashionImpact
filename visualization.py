@@ -55,13 +55,16 @@ def plot_topic_distribution(lda_model, vectorizer, data):
             top_words = [feature_names[i] for i in top_words_idx]
             top_values = [topic[i] for i in top_words_idx]
 
+            # Create a dataframe for the top words and values
+            df = pd.DataFrame({'word': top_words, 'weight': top_values})
+
             # Create a bar plot for the top words
             plt.figure(figsize=(10, 6))
-            sns.barplot(x=top_words, y=top_values)
+            sns.barplot(x='word', y='weight', data=df)
             plt.title(f'Topic {topic_idx + 1} - Top Words')
             plt.xlabel('Word')
             plt.ylabel('Weight')
-            plt.xticks(rotation=45)
+            plt.xticks(rotation=45, ha='right')
             plt.tight_layout()
             plt.savefig(f'topic_{topic_idx + 1}.png')
             plt.close()

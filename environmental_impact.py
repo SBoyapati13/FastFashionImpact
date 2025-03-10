@@ -1,122 +1,95 @@
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns
-import nltk
-import tweepy
-from api_credentials import *
-from data_analysis import perform_topic_modeling, analyze_sentiment_trends, identify_key_influencers
-from environmental_impact import calculate_carbon_emissions, estimate_water_consumption, analyze_textile_waste, calculate_microplastic_pollution, generate_environmental_impact_report, estimate_landfill_usage
-from visualization import plot_sentiment_trends, plot_environmental_impact, plot_topic_distribution, plot_key_influencers
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from nltk.sentiment import SentimentIntensityAnalyzer
 
-def collect_twitter_data():
-    auth = tweepy.OAuthHandler(TWITTER_API_KEY, TWITTER_API_SECRET)
-    auth.set_access_token(TWITTER_ACCESS_TOKEN, TWITTER_ACCESS_TOKEN_SECRET)
-    api = tweepy.API(auth)
+def calculate_carbon_emissions(production_data):
+    # Fashion industry responsible for 10% of global carbon emissions
+    global_emissions = 1.2 * 10**9  # 1.2 billion tons of CO2 equivalent annually
+    fashion_emissions = global_emissions
+    return fashion_emissions * (production_data['total_production'] / production_data['total_production'].sum())
 
-    tweets = []
-    search_query = "fast fashion OR sustainable fashion"
+def estimate_water_consumption(production_data):
+    # Fashion industry uses 141 billion cubic meters of water annually
+    total_water_consumption = 141 * 10**9
+    return total_water_consumption * (production_data['total_production'] / production_data['total_production'].sum())
 
-    for tweet in tweepy.Cursor(api.search_tweets, q=search_query, lang="en", count=200).items(1000):
-        tweets.append(tweet._json)
+def analyze_textile_waste(sales_data, return_data):
+    total_produced = sales_data['total_items'].sum()
+    total_returned = return_data['returned_items'].sum()
+    waste_percentage = 0.85  # 85% of textile waste ends up in landfills
+    annual_textile_waste = 92 * 10**6  # 92 million tonnes of textile waste annually
+    return annual_textile_waste * waste_percentage
 
-    return pd.DataFrame(tweets)
+def calculate_microplastic_pollution(synthetic_fiber_data):
+    # 500,000 tons of microfibers released annually
+    total_microplastics = 500000
+    return total_microplastics * (synthetic_fiber_data['synthetic_production'] / synthetic_fiber_data['synthetic_production'].sum())
 
-def collect_facebook_data():
-    # TODO: Implement Facebook data collection using Graph API
-    pass
+def estimate_landfill_usage(sales_data, return_data):
+    # Estimate landfill usage based on unsold items and textile waste
+    total_produced = sales_data['total_items'].sum()
+    total_returned = return_data['returned_items'].sum()
+    unsold_items = total_produced - total_returned
+    landfill_space_per_item = 0.01  # Estimate: 0.01 cubic meters per item
+    total_landfill_space = unsold_items * landfill_space_per_item
+    return total_landfill_space
 
-def collect_instagram_data():
-    # TODO: Implement Instagram data collection
-    pass
+def estimate_chemical_usage(production_data):
+    # Estimate chemical usage based on production data
+    chemical_usage_per_item = 0.1  # Example: 0.1 kg of chemicals per item
+    total_chemical_usage = chemical_usage_per_item * production_data['total_production'].sum()
+    return total_chemical_usage
 
-def clean_data(data):
-    # Remove duplicates, handle missing values, and standardize text format
-    data = data.drop_duplicates()
-    data = data.dropna(subset=['text'])
+def generate_environmental_impact_report(carbon_emissions, water_consumption, textile_waste, microplastic_pollution, landfill_usage, chemical_usage):
+    report = f"""
+    Environmental Impact Report for Fast Fashion Industry (2025)
 
-    # Convert text to lowercase
-    data['text'] = data['text'].str.lower()
+    1. Carbon Emissions: {carbon_emissions:.2f} tons CO2e
+    2. Water Consumption: {water_consumption:.2f} cubic meters
+    3. Textile Waste: {textile_waste:.2f} tons
+    4. Microplastic Pollution: {microplastic_pollution:.2f} tons
+    5. Landfill Usage: {landfill_usage:.2f} cubic meters
+    6. Chemical Usage: {chemical_usage:.2f} kg
 
-    # Remove punctuation
-    data['text'] = data['text'].str.replace('[^\w\s]','')
+    Key Findings:
+    - The fashion industry is responsible for 10% of global carbon emissions, surpassing international flights and maritime shipping combined[1][3][5].
+    - The industry uses 141 billion cubic meters of water annually[3].
+    - Fast fashion contributes to 35% of microplastics polluting our oceans[3].
+    - Up to 8,000 different chemicals are used in textile production[5].
+    - One polyester blouse generates 11.6 kg CO2e from production to retail[5].
+    - 20% of global water pollution comes from textile dyeing[5].
+    - Synthetic materials release 500,000 tons of microfibers into the oceans annually[5].
 
-    # Remove numbers
-    data['text'] = data['text'].str.replace('\d','')
+    Market Growth:
+    - The fast fashion market size has grown to $163.21 billion in 2025[2].
+    - It is projected to reach $214.24 billion by 2029, growing at a CAGR of 7%[2].
 
-    # Remove URLs
-    data['text'] = data['text'].str.replace('http\S+|www.\S+', '', case=False)
-
-    # Remove stopwords
-    stop_words = set(stopwords.words('english'))
-    data['text'] = data['text'].apply(lambda x: ' '.join([word for word in x.split() if word not in stop_words]))
-
-    return data
-
-def perform_sentiment_analysis(data):
-    sid = SentimentIntensityAnalyzer()
-    data['sentiment_scores'] = data['text'].apply(lambda text: sid.polarity_scores(text))
-    data['sentiment'] = data['sentiment_scores'].apply(lambda score_dict: 'positive' if score_dict['compound'] >= 0.05 else ('negative' if score_dict['compound'] <= -0.05 else 'neutral'))
-    return data
-
-def quantify_environmental_impact(production_data, sales_data, return_data, synthetic_fiber_data):
-    carbon_emissions = calculate_carbon_emissions(production_data)
-    water_consumption = estimate_water_consumption(production_data)
-    textile_waste = analyze_textile_waste(sales_data, return_data)
-    microplastic_pollution = calculate_microplastic_pollution(synthetic_fiber_data)
-    landfill_usage = estimate_landfill_usage(sales_data, return_data)
-
-
-    report = generate_environmental_impact_report(carbon_emissions.sum(), water_consumption.sum(), textile_waste.sum(), microplastic_pollution.sum(), landfill_usage)
-
+    Recommendations:
+    1. Transition to sustainable materials and production methods.
+    2. Implement circular economy practices to reduce waste.
+    3. Invest in water-saving technologies and processes.
+    4. Develop innovative solutions to address microplastic pollution.
+    5. Educate consumers about the environmental impact of fast fashion.
+    """
     return report
 
-def identify_trends(data):
-    lda_model, vectorizer = perform_topic_modeling(data, n_topics=5)
-    return lda_model, vectorizer
-
-def visualize_results(sentiment_data, lda_model, vectorizer, env_report, influencer_data):
-    plot_sentiment_trends(sentiment_data)
-    plot_environmental_impact(env_report)
-    plot_topic_distribution(lda_model, vectorizer, sentiment_data)  #To do: Implement and provide right inputs
-    plot_key_influencers(influencer_data)
-
 def main():
-    nltk.download('stopwords')
-    nltk.download('punkt')
-    nltk.download('wordnet')
-    nltk.download('vader_lexicon') #ADDED: need this for the sentiment intesity analyser to work properly
-    twitter_data = collect_twitter_data()
-    #facebook_data = collect_facebook_data()
-    #instagram_data = collect_instagram_data()
-
-    all_data = twitter_data #pd.concat([twitter_data, facebook_data, instagram_data])
-
-    cleaned_data = clean_data(all_data)
-
-    sentiment_data = perform_sentiment_analysis(cleaned_data)
-
-    # Dummy data for environmental impact calculation (replace with actual data)
+    # Load and preprocess data (replace with actual data loading)
     production_data = pd.DataFrame({'total_production': [1000000, 2000000, 1500000]})
     sales_data = pd.DataFrame({'total_items': [3500000]})
     return_data = pd.DataFrame({'returned_items': [175000]})
     synthetic_fiber_data = pd.DataFrame({'synthetic_production': [1000000, 1500000]})
 
-    env_report = quantify_environmental_impact(production_data, sales_data, return_data, synthetic_fiber_data)
+    # Calculate environmental impact metrics
+    carbon_emissions = calculate_carbon_emissions(production_data)
+    water_consumption = estimate_water_consumption(production_data)
+    textile_waste = analyze_textile_waste(sales_data, return_data)
+    microplastic_pollution = calculate_microplastic_pollution(synthetic_fiber_data)
+    landfill_usage = estimate_landfill_usage(sales_data, return_data)
+    chemical_usage = estimate_chemical_usage(production_data)
 
-    lda_model, vectorizer = identify_trends(cleaned_data)
-
-    #This is expecting particular inputs, i am sending the cleaned data frame so it doesnt break
-    #plot_sentiment_trends(sentiment_data) #Something with the plot sentitment is not working properly
-
-    influencer_data = identify_key_influencers(cleaned_data)
-
-    #The following code is not working because a lot of the parameters are just pass
-    visualize_results(sentiment_data, lda_model, vectorizer, env_report, influencer_data)
-    print(env_report)
+    # Generate report
+    report = generate_environmental_impact_report(carbon_emissions.sum(), water_consumption.sum(), textile_waste.sum(), microplastic_pollution.sum(), landfill_usage, chemical_usage)
+    print(report)
 
 if __name__ == "__main__":
     main()

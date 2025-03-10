@@ -4,19 +4,19 @@ import pandas as pd
 
 def plot_sentiment_trends(sentiment_data):
     try:
-        if isinstance(sentiment_data, pd.DataFrame) and 'sentiment_scores' in sentiment_data.columns:
-            sentiment_scores = sentiment_data['sentiment_scores'].apply(lambda x: x['compound'])
-            plt.figure(figsize=(12, 6))
-            sns.lineplot(data=sentiment_scores)  # Simple line plot of sentiment scores
-            plt.title('Sentiment Trends in Fast Fashion Discussions')
-            plt.xlabel('Index')
-            plt.ylabel('Sentiment Score')
-            plt.savefig('sentiment_trends.png')
+        if isinstance(sentiment_data, pd.DataFrame):
+            # Plotting the distribution of sentiment scores
+            plt.figure(figsize=(10, 6))
+            sns.histplot(sentiment_data['sentiment'], discrete=True, kde=False)
+            plt.title('Distribution of Sentiments')
+            plt.xlabel('Sentiment')
+            plt.ylabel('Number of Tweets')
+            plt.savefig('sentiment_distribution.png')
             plt.close()
         else:
             print("Invalid sentiment data format for plotting.")
     except Exception as e:
-        print(f"Error plotting sentiment trends: {e}")
+        print(f"Error plotting sentiment distribution: {e}")
 
 def plot_environmental_impact(env_report):
     try:
@@ -25,10 +25,11 @@ def plot_environmental_impact(env_report):
         water_consumption = float(env_report.split('Water Consumption: ')[1].split(' cubic meters')[0])
         textile_waste = float(env_report.split('Textile Waste: ')[1].split(' tons')[0])
         microplastic_pollution = float(env_report.split('Microplastic Pollution: ')[1].split(' tons')[0])
+        chemical_usage = float(env_report.split('Chemical Usage: ')[1].split(' kg')[0])
 
         # Prepare the data for the bar chart
-        metrics = ['Carbon Emissions', 'Water Consumption', 'Textile Waste', 'Microplastic Pollution']
-        values = [carbon_emissions, water_consumption, textile_waste, microplastic_pollution]
+        metrics = ['Carbon Emissions', 'Water Consumption', 'Textile Waste', 'Microplastic Pollution', 'Chemical Usage']
+        values = [carbon_emissions, water_consumption, textile_waste, microplastic_pollution, chemical_usage]
 
         # Create a bar chart
         plt.figure(figsize=(12, 6))

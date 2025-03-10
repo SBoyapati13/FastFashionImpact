@@ -3,7 +3,7 @@ import numpy as np
 
 def calculate_carbon_emissions(production_data):
     # Fashion industry responsible for 10% of global carbon emissions
-    global_emissions = 1.2 * 10**9  # 1.2 billion tons of CO2 equivalent annually
+    global_emissions = 1.2 * 10**9 # 1.2 billion tons of CO2 equivalent annually
     fashion_emissions = global_emissions
     return fashion_emissions * (production_data['total_production'] / production_data['total_production'].sum())
 
@@ -15,8 +15,8 @@ def estimate_water_consumption(production_data):
 def analyze_textile_waste(sales_data, return_data):
     total_produced = sales_data['total_items'].sum()
     total_returned = return_data['returned_items'].sum()
-    waste_percentage = 0.85  # 85% of textile waste ends up in landfills
-    annual_textile_waste = 92 * 10**6  # 92 million tonnes of textile waste annually
+    waste_percentage = 0.85 # 85% of textile waste ends up in landfills
+    annual_textile_waste = 92 * 10**6 # 92 million tonnes of textile waste annually
     return annual_textile_waste * waste_percentage
 
 def calculate_microplastic_pollution(synthetic_fiber_data):
@@ -24,7 +24,13 @@ def calculate_microplastic_pollution(synthetic_fiber_data):
     total_microplastics = 500000
     return total_microplastics * (synthetic_fiber_data['synthetic_production'] / synthetic_fiber_data['synthetic_production'].sum())
 
-def generate_environmental_impact_report(carbon_emissions, water_consumption, textile_waste, microplastic_pollution):
+def estimate_chemical_usage(production_data):
+    # Estimation of chemical usage based on production data
+    chemical_usage_per_item = 0.5  # Example: 0.5 kg of chemicals per item
+    total_chemical_usage = chemical_usage_per_item * production_data['total_production'].sum()
+    return total_chemical_usage
+
+def generate_environmental_impact_report(carbon_emissions, water_consumption, textile_waste, microplastic_pollution, chemical_usage):
     report = f"""
     Environmental Impact Report for Fast Fashion Industry (2025)
 
@@ -32,6 +38,7 @@ def generate_environmental_impact_report(carbon_emissions, water_consumption, te
     2. Water Consumption: {water_consumption:.2f} cubic meters
     3. Textile Waste: {textile_waste:.2f} tons
     4. Microplastic Pollution: {microplastic_pollution:.2f} tons
+    5. Chemical Usage: {chemical_usage:.2f} kg
 
     Key Findings:
     - The fashion industry is responsible for 10% of global carbon emissions, surpassing international flights and maritime shipping combined[1][3][5].
@@ -67,9 +74,10 @@ def main():
     water_consumption = estimate_water_consumption(production_data)
     textile_waste = analyze_textile_waste(sales_data, return_data)
     microplastic_pollution = calculate_microplastic_pollution(synthetic_fiber_data)
+    chemical_usage = estimate_chemical_usage(production_data)
 
     # Generate report
-    report = generate_environmental_impact_report(carbon_emissions.sum(), water_consumption.sum(), textile_waste, microplastic_pollution.sum())
+    report = generate_environmental_impact_report(carbon_emissions.sum(), water_consumption.sum(), textile_waste, microplastic_pollution.sum(), chemical_usage.sum())
     print(report)
 
 if __name__ == "__main__":

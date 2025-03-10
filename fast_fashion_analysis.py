@@ -6,7 +6,7 @@ import nltk
 import tweepy
 from api_credentials import *
 from data_analysis import perform_topic_modeling, analyze_sentiment_trends, identify_key_influencers
-from environmental_impact import calculate_carbon_emissions, estimate_water_consumption, analyze_textile_waste, calculate_microplastic_pollution, generate_environmental_impact_report
+from environmental_impact import calculate_carbon_emissions, estimate_water_consumption, analyze_textile_waste, calculate_microplastic_pollution, generate_environmental_impact_report, estimate_chemical_usage
 from visualization import plot_sentiment_trends, plot_environmental_impact, plot_topic_distribution, plot_key_influencers
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
@@ -67,8 +67,9 @@ def quantify_environmental_impact(production_data, sales_data, return_data, synt
     water_consumption = estimate_water_consumption(production_data)
     textile_waste = analyze_textile_waste(sales_data, return_data)
     microplastic_pollution = calculate_microplastic_pollution(synthetic_fiber_data)
+    chemical_usage = estimate_chemical_usage(production_data)
 
-    report = generate_environmental_impact_report(carbon_emissions.sum(), water_consumption.sum(), textile_waste, microplastic_pollution.sum())
+    report = generate_environmental_impact_report(carbon_emissions.sum(), water_consumption.sum(), textile_waste, microplastic_pollution.sum(), chemical_usage.sum())
 
     return report
 
@@ -77,7 +78,7 @@ def identify_trends(data):
     return lda_model, vectorizer
 
 def visualize_results(sentiment_data, lda_model, env_report, influencer_data):
-    # plot_sentiment_trends(sentiment_data) #not working
+    plot_sentiment_trends(sentiment_data)
     plot_environmental_impact(env_report)
     #plot_topic_distribution(lda_model, vectorizer)  #To do: Implement and provide right inputs
     plot_key_influencers(influencer_data)

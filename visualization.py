@@ -54,19 +54,20 @@ def plot_topic_distribution(lda_model, vectorizer, data):
             top_words_idx = topic.argsort()[-10:]  # Get the indices of the top 10 words
             top_words = [feature_names[i] for i in top_words_idx]
             top_values = [topic[i] for i in top_words_idx]
+        
+            # Combine words and their weights into a dictionary
+            word_weights = dict(zip(top_words, top_values))
+        
+            # Create a WordCloud object
+            wordcloud = WordCloud(width=800, height=400, background_color='white').generate_from_frequencies(word_weights)
 
-            # Create a dataframe for the top words and values
-            df = pd.DataFrame({'word': top_words, 'weight': top_values})
-
-            # Create a bar plot for the top words
+            # Display the generated image:
             plt.figure(figsize=(10, 6))
-            sns.barplot(x='word', y='weight', data=df)
-            plt.title(f'Topic {topic_idx + 1} - Top Words')
-            plt.xlabel('Word')
-            plt.ylabel('Weight')
-            plt.xticks(rotation=45, ha='right')
+            plt.imshow(wordcloud, interpolation='bilinear')
+            plt.axis("off")
+            plt.title(f'Topic {topic_idx + 1} - Word Cloud')
             plt.tight_layout()
-            plt.savefig(f'topic_{topic_idx + 1}.png')
+            plt.savefig(f'topic_{topic_idx + 1}_wordcloud.png')
             plt.close()
     except Exception as e:
         print(f"Error plotting topic distribution: {e}")

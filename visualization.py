@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
 import pandas as pd
+from wordcloud import WordCloud
 
 def plot_sentiment_trends(sentiment_data):
     try:
@@ -25,11 +26,11 @@ def plot_environmental_impact(env_report):
         water_consumption = float(env_report.split('Water Consumption: ')[1].split(' cubic meters')[0])
         textile_waste = float(env_report.split('Textile Waste: ')[1].split(' tons')[0])
         microplastic_pollution = float(env_report.split('Microplastic Pollution: ')[1].split(' tons')[0])
-        chemical_usage = float(env_report.split('Chemical Usage: ')[1].split(' kg')[0])
+        #chemical_usage = float(env_report.split('Chemical Usage: ')[1].split(' kg')[0])
 
         # Prepare the data for the bar chart
-        metrics = ['Carbon Emissions', 'Water Consumption', 'Textile Waste', 'Microplastic Pollution', 'Chemical Usage']
-        values = [carbon_emissions, water_consumption, textile_waste, microplastic_pollution, chemical_usage]
+        metrics = ['Carbon Emissions', 'Water Consumption', 'Textile Waste', 'Microplastic Pollution']
+        values = [carbon_emissions, water_consumption, textile_waste, microplastic_pollution]
 
         # Create a bar chart
         plt.figure(figsize=(12, 6))
@@ -43,9 +44,29 @@ def plot_environmental_impact(env_report):
     except Exception as e:
         print(f"Error plotting environmental impact: {e}")
 
-def plot_topic_distribution(lda_model, vectorizer):
-    # TODO: Implement visualization for topic modeling results
-    pass
+def plot_topic_distribution(lda_model, vectorizer, data):
+    try:
+        # Get feature names (words)
+        feature_names = vectorizer.get_feature_names_out()
+
+        # For each topic, plot the top words
+        for topic_idx, topic in enumerate(lda_model.components_):
+            top_words_idx = topic.argsort()[-10:]  # Get the indices of the top 10 words
+            top_words = [feature_names[i] for i in top_words_idx]
+            top_values = [topic[i] for i in top_words_idx]
+
+            # Create a bar plot for the top words
+            plt.figure(figsize=(10, 6))
+            sns.barplot(x=top_words, y=top_values)
+            plt.title(f'Topic {topic_idx + 1} - Top Words')
+            plt.xlabel('Word')
+            plt.ylabel('Weight')
+            plt.xticks(rotation=45)
+            plt.tight_layout()
+            plt.savefig(f'topic_{topic_idx + 1}.png')
+            plt.close()
+    except Exception as e:
+        print(f"Error plotting topic distribution: {e}")
 
 def plot_key_influencers(influencer_data):
     try:

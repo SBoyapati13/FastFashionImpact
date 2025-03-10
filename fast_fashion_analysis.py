@@ -77,10 +77,10 @@ def identify_trends(data):
     lda_model, vectorizer = perform_topic_modeling(data, n_topics=5)
     return lda_model, vectorizer
 
-def visualize_results(sentiment_data, lda_model, env_report, influencer_data):
+def visualize_results(sentiment_data, lda_model, vectorizer, env_report, influencer_data):
     plot_sentiment_trends(sentiment_data)
     plot_environmental_impact(env_report)
-    #plot_topic_distribution(lda_model, vectorizer)  #To do: Implement and provide right inputs
+    plot_topic_distribution(lda_model, vectorizer, sentiment_data)  #To do: Implement and provide right inputs
     plot_key_influencers(influencer_data)
 
 def main():
@@ -114,7 +114,7 @@ def main():
     influencer_data = identify_key_influencers(cleaned_data)
 
     #The following code is not working because a lot of the parameters are just pass
-    visualize_results(sentiment_data, lda_model, env_report, influencer_data)
+    visualize_results(sentiment_data, lda_model, vectorizer, env_report, influencer_data)
     print(env_report)
 
 if __name__ == "__main__":

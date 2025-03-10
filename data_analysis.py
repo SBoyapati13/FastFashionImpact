@@ -25,10 +25,15 @@ def identify_key_influencers(data):
     # Calculate engagement metrics (e.g., retweets, likes)
     data['engagement'] = data['retweet_count'] + data['favorite_count']
 
+    # Calculate interaction ratio (engagement divided by follower count)
+    data['interaction_ratio'] = data['engagement'] / data['user.followers_count']
+    data['interaction_ratio'] = data['interaction_ratio'].replace([np.inf, -np.inf], 0)
+
     # Identify influencers based on engagement and follower count
     influencers = data.groupby('user.screen_name').agg(
         total_engagement=('engagement', 'sum'),
-        follower_count=('user.followers_count', 'mean')
-    ).sort_values(by=['total_engagement', 'follower_count'], ascending=False)
+        follower_count=('user.followers_count', 'mean'),
+        avg_interaction_ratio=('interaction_ratio', 'mean')
+    ).sort_values(by=['avg_interaction_ratio','total_engagement', 'follower_count'], ascending=False)
 
     return influencers.head(10)

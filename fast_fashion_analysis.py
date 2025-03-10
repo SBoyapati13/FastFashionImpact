@@ -73,21 +73,20 @@ def quantify_environmental_impact(production_data, sales_data, return_data, synt
     return report
 
 def identify_trends(data):
-    lda_model, vectorizer = perform_topic_modeling(data)
+    lda_model, vectorizer = perform_topic_modeling(data, n_topics=5)
     return lda_model, vectorizer
 
-def visualize_results(data, lda_model, env_report, sentiment_trends, key_influencers):
-  
-    plot_sentiment_trends(sentiment_trends)
+def visualize_results(sentiment_data, lda_model, env_report, influencer_data):
+    # plot_sentiment_trends(sentiment_data) #not working
     plot_environmental_impact(env_report)
-    plot_topic_distribution(lda_model, vectorizer)
-    plot_key_influencers(key_influencers)
-
+    #plot_topic_distribution(lda_model, vectorizer)  #To do: Implement and provide right inputs
+    plot_key_influencers(influencer_data)
 
 def main():
     nltk.download('stopwords')
     nltk.download('punkt')
     nltk.download('wordnet')
+    nltk.download('vader_lexicon') #ADDED: need this for the sentiment intesity analyser to work properly
     twitter_data = collect_twitter_data()
     #facebook_data = collect_facebook_data()
     #instagram_data = collect_instagram_data()
@@ -106,13 +105,15 @@ def main():
 
     env_report = quantify_environmental_impact(production_data, sales_data, return_data, synthetic_fiber_data)
 
-    #lda_model, vectorizer = identify_trends(cleaned_data['text']) #This expects just the text
-    lda_model, vectorizer = perform_topic_modeling(cleaned_data, n_topics=5)
-    sentiment_trends = analyze_sentiment_trends(sentiment_data) #This is also expecting particular inputs
-    key_influencers = identify_key_influencers(cleaned_data) #also this
+    lda_model, vectorizer = identify_trends(cleaned_data)
+
+    #This is expecting particular inputs, i am sending the cleaned data frame so it doesnt break
+    #plot_sentiment_trends(sentiment_data) #Something with the plot sentitment is not working properly
+
+    influencer_data = identify_key_influencers(cleaned_data)
 
     #The following code is not working because a lot of the parameters are just pass
-    visualize_results(cleaned_data, lda_model, env_report, sentiment_trends, key_influencers)
+    visualize_results(sentiment_data, lda_model, env_report, influencer_data)
     print(env_report)
 
 if __name__ == "__main__":

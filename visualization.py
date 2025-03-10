@@ -47,5 +47,18 @@ def plot_topic_distribution(lda_model, vectorizer):
     pass
 
 def plot_key_influencers(influencer_data):
-    # TODO: Implement visualization for key influencers
-    pass
+    try:
+        if isinstance(influencer_data, pd.DataFrame):
+            plt.figure(figsize=(12, 6))
+            sns.barplot(x=influencer_data.index, y=influencer_data['total_engagement'])
+            plt.title('Top 10 Key Influencers')
+            plt.xlabel('Influencer')
+            plt.ylabel('Total Engagement')
+            plt.xticks(rotation=45, ha='right')
+            plt.tight_layout()
+            plt.savefig('key_influencers.png')
+            plt.close()
+        else:
+            print("Invalid influencer data format for plotting.")
+    except Exception as e:
+        print(f"Error plotting key influencers: {e}")

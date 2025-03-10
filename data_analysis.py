@@ -7,10 +7,6 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 
 def perform_topic_modeling(data, n_topics=5):
-    # Preprocess the text data
-    stop_words = set(stopwords.words('english'))
-    data['text'] = data['text'].apply(lambda x: ' '.join([word for word in x.split() if word not in stop_words]))
-
     vectorizer = CountVectorizer(max_df=0.95, min_df=2, stop_words='english')
     doc_term_matrix = vectorizer.fit_transform(data['text'])
     lda = LatentDirichletAllocation(n_components=n_topics, random_state=42)
@@ -22,9 +18,17 @@ def calculate_environmental_metrics(data):
     pass
 
 def analyze_sentiment_trends(data):
-    # This function does nothing since sentiment analysis is completed in fast_fashion_analysis.py
+    # TODO: Implement sentiment trend analysis over time
     pass
 
 def identify_key_influencers(data):
-    # TODO: Implement algorithm to identify key influencers in the dataset
-    pass
+    # Calculate engagement metrics (e.g., retweets, likes)
+    data['engagement'] = data['retweet_count'] + data['favorite_count']
+
+    # Identify influencers based on engagement and follower count
+    influencers = data.groupby('user.screen_name').agg(
+        total_engagement=('engagement', 'sum'),
+        follower_count=('user.followers_count', 'mean')
+    ).sort_values(by=['total_engagement', 'follower_count'], ascending=False)
+
+    return influencers.head(10)

@@ -4,10 +4,24 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import nltk
 import tweepy
+import facebook
 
 def collect_data():
-    # TODO: Implement data collection from social media and other sources
-    pass
+    # Twitter data collection
+    auth = tweepy.OAuthHandler("YOUR_CONSUMER_KEY", "YOUR_CONSUMER_SECRET")
+    auth.set_access_token("YOUR_ACCESS_TOKEN", "YOUR_ACCESS_TOKEN_SECRET")
+    api = tweepy.API(auth)
+
+    twitter_data = []
+    query = "fast fashion OR sustainable fashion"
+    for tweet in tweepy.Cursor(api.search_tweets, q=query, lang="en", tweet_mode="extended").items(1000):
+        twitter_data.append(tweet._json)
+
+    # Facebook data collection
+    graph = facebook.GraphAPI(access_token="YOUR_FACEBOOK_ACCESS_TOKEN")
+    facebook_data = graph.get_connections(id="PAGE_ID", connection_name="posts")
+
+    return {"twitter": twitter_data, "facebook": facebook_data}
 
 def clean_data(data):
     # TODO: Implement data cleaning and preprocessing

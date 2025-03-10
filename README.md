@@ -35,6 +35,13 @@ pip install -r requirements.txt
 
 ## Usage
 
+To run this project, you will need to set the following environment variables:
+
+TWITTER_API_KEY
+TWITTER_API_SECRET
+TWITTER_ACCESS_TOKEN
+TWITTER_ACCESS_TOKEN_SECRET
+
 Run the main analysis script:
 python fast_fashion_analysis.py
 

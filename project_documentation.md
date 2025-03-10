@@ -40,3 +40,22 @@
 - Twitter: Developer account required, create app at developer.twitter.com
 - Facebook: Developer account needed, create app at developers.facebook.com
 - Instagram: Business or Creator account linked to Facebook Page required
+
+## 10. Data Analysis Methods
+
+### Topic Modeling
+- Using Latent Dirichlet Allocation (LDA) to identify main topics in social media discussions
+- Number of topics: 5 (adjustable)
+
+### Environmental Impact Metrics
+- Calculating carbon emissions based on industry data
+- Estimating water usage from fast fashion production
+- Quantifying textile waste generation
+
+### Sentiment Trend Analysis
+- Tracking sentiment changes over time
+- Identifying correlations between sentiment and environmental awareness
+
+### Key Influencer Identification
+- Analyzing user engagement and reach
+- Identifying accounts with significant impact on fast fashion discussions

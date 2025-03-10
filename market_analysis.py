@@ -31,6 +31,7 @@ def main():
     print(f"CAGR: {cagr:.2%}")
     print(f"Market size in 2025: ${market_data['Market Size (billion USD)'].iloc[4]:.2f} billion")
     print(f"Projected market size in 2027: ${market_data['Market Size (billion USD)'].iloc[-1]:.2f} billion")
+    print(f"The fast fashion market is expected to reach $291.1 billion by 2032, growing at a CAGR of 10.7% from 2024 to 2032[2].")
 
 if __name__ == "__main__":
     main()

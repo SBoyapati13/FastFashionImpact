@@ -28,7 +28,7 @@ This project analyzes the environmental impact of fast fashion by leveraging soc
 
 1.  Clone the repository:
 
-git clone <https://github.com/yourusername/FastFashionImpact.git>
+git clone <https://github.com/SBoyapati13/FastFashionImpact.git>
 
 2.  Navigate to the project directory:
 
